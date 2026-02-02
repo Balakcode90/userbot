@@ -43,10 +43,6 @@ def is_approved(text):
     # Check for keywords
     for keyword in config.APPROVED_KEYWORDS:
         if keyword in text:
-            # check for false positives if needed, but requirements say "Ignore Declined / Failed / Processing"
-            # which is implicit if we only look for Approved. 
-            # However, ensure we don't pick up "Not Approved" if that was a thing, 
-            # but the task list is specific about the positive match.
             return True
     return False
 
@@ -57,28 +53,25 @@ async def handler(event):
         # Get sender
         sender = await event.get_sender()
         
-        # 2. Allow Bot API bots and Userbots, block only self
+        # Allow Bot API bots and Userbots, block only self
         if sender and sender.is_self:
             return
 
-        # 4. Extract full message text safely
+        # Extract full message text safely
         text = event.message.text or event.message.raw_text
         
-        # 5. Detect Approved results
+        # Detect Approved results
         if is_approved(text):
             chat_id = event.chat_id
             message_id = event.id
             
-            # 8. Prevent duplicate posting
-            # For edited messages, we might have processed the "NewMessage" version if it was already approved?
-            # Or if it changed from Processing -> Approved.
-            # If we already processed this message ID as approved, skip.
+            # Prevent duplicate posting
             if (chat_id, message_id) in processed_messages:
                 return
 
             logger.info(f"Approved message detected in {chat_id} from {sender.id}")
             
-            # 7. Post FULL message content to private channel
+            # Post FULL message content to private channel
             # Send as NEW message (no forward tag)
             try:
                 await client.send_message(
@@ -99,27 +92,79 @@ async def handler(event):
     except Exception as e:
         logger.error(f"Error processing event: {e}")
 
-async def main():
-    print("Starting Power Bot...")
-    logger.info("Starting Power Bot")
+# --- HEALTH SERVER LOGIC FOR KOYEB ---
+# Koyeb requires a TCP/HTTP health check to keep a web service alive.
+# Without this, the service will be marked as unhealthy and restarted or stopped.
+async def handle_health_check(reader, writer):
+    """
+    Handles incoming HTTP requests for the health check.
+    Returns a 200 OK response with a plain text body.
+    """
+    try:
+        # Consume the request headers (not used but good practice to read)
+        data = await reader.read(1024)
+        
+        # Construct a minimal HTTP 200 OK response
+        response = (
+            "HTTP/1.1 200 OK\r\n"
+            "Content-Type: text/plain\r\n"
+            "Content-Length: 2\r\n"
+            "Connection: close\r\n"
+            "\r\n"
+            "OK"
+        )
+        
+        writer.write(response.encode('utf-8'))
+        await writer.drain()
+    except Exception as e:
+        logger.error(f"Health check error: {e}")
+    finally:
+        writer.close()
+        await writer.wait_closed()
+
+async def start_health_server(host='0.0.0.0', port=8000):
+    """
+    Starts a minimal asynchronous TCP server to act as an HTTP health endpoint.
+    This runs in parallel with the Telegram bot's event loop.
+    """
+    server = await asyncio.start_server(handle_health_check, host, port)
+    addr = server.sockets[0].getsockname()
+    logger.info(f"Health server listening on {addr}")
     
-    # Start the client
-    # This will prompt for phone number and code on first run if not authorized
-    # If the user has 2FA enabled but wants to login with just code,
-    # we use the standard start() which handles interactive password prompt if needed.
+    async with server:
+        await server.serve_forever()
+
+async def main():
+    print("Starting Power Bot with Health Server...")
+    logger.info("Starting Power Bot and Health Server")
+    
+    # Start the health server in the background
+    # This ensures Koyeb's health checks pass while the bot is initializing
+    health_task = asyncio.create_task(start_health_server())
+    
+    # Start the Telegram client
+    # This handles authentication and event processing
     await client.start(phone=config.PHONE_NUMBER)
     
     print("Bot is running. Monitoring groups...")
     logger.info("Bot is running and monitoring groups.")
     
-    # Run until disconnected
-    await client.run_until_disconnected()
+    # Run both the client and health server concurrently
+    # run_until_disconnected() keeps the main loop alive
+    try:
+        await client.run_until_disconnected()
+    finally:
+        # Cleanup tasks if the bot stops
+        health_task.cancel()
+        try:
+            await health_task
+        except asyncio.CancelledError:
+            pass
 
 if __name__ == '__main__':
     # Automatically install requirements
     try:
         import telethon
-        import dotenv
     except ImportError:
         print("Installing requirements...")
         import subprocess
@@ -128,6 +173,9 @@ if __name__ == '__main__':
         subprocess.check_call([sys.executable, "-m", "pip", "install", "-r", requirements_path])
 
     try:
+        # Use the existing event loop from Telethon's client
         client.loop.run_until_complete(main())
     except KeyboardInterrupt:
         print("Bot stopped.")
+    except Exception as e:
+        logger.critical(f"Critical error in main: {e}")
