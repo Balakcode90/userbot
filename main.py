@@ -2,13 +2,15 @@ import sys
 import logging
 import asyncio
 import os
+
 from telethon import TelegramClient, events
+from aiohttp import web
 import config
 
-# Configure logging
+# ================= LOGGING =================
 logging.basicConfig(
     level=logging.INFO,
-    format='%(asctime)s - %(levelname)s - %(message)s',
+    format="%(asctime)s - %(levelname)s - %(message)s",
     handlers=[
         logging.FileHandler(config.LOG_FILE),
         logging.StreamHandler(sys.stdout)
@@ -16,118 +18,98 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
-# Ensure directories exist
+# ================= DIRS =================
 os.makedirs(config.SESSION_DIR, exist_ok=True)
 os.makedirs(config.LOG_DIR, exist_ok=True)
 
-# Check for credentials
+# ================= CHECK CREDS =================
 if not config.API_ID or not config.API_HASH:
-    logger.error("API_ID and API_HASH must be set in environment variables or .env file")
-    print("Please set API_ID and API_HASH environment variables.")
+    logger.error("API_ID or API_HASH missing")
     sys.exit(1)
 
-# Initialize Client
+# ================= CLIENT =================
 client = TelegramClient(
     config.SESSION_FILE,
     config.API_ID,
     config.API_HASH
 )
 
-# Deduplication cache: (chat_id, message_id)
+# ================= CACHE =================
 processed_messages = set()
 
-def is_approved(text):
+# ================= APPROVED CHECK =================
+def is_approved(text: str) -> bool:
     if not text:
         return False
-    
-    # Check for keywords
     for keyword in config.APPROVED_KEYWORDS:
-        if keyword in text:
-            # check for false positives if needed, but requirements say "Ignore Declined / Failed / Processing"
-            # which is implicit if we only look for Approved. 
-            # However, ensure we don't pick up "Not Approved" if that was a thing, 
-            # but the task list is specific about the positive match.
+        if keyword.lower() in text.lower():
             return True
     return False
 
+# ================= EVENT HANDLER =================
 @client.on(events.NewMessage(chats=config.MONITORED_GROUPS))
 @client.on(events.MessageEdited(chats=config.MONITORED_GROUPS))
 async def handler(event):
     try:
-        # Get sender
         sender = await event.get_sender()
-        
-        # 2. Allow Bot API bots and Userbots, block only self
         if sender and sender.is_self:
             return
 
-        # 4. Extract full message text safely
         text = event.message.text or event.message.raw_text
-        
-        # 5. Detect Approved results
+
         if is_approved(text):
             chat_id = event.chat_id
-            message_id = event.id
-            
-            # 8. Prevent duplicate posting
-            # For edited messages, we might have processed the "NewMessage" version if it was already approved?
-            # Or if it changed from Processing -> Approved.
-            # If we already processed this message ID as approved, skip.
-            if (chat_id, message_id) in processed_messages:
+            msg_id = event.id
+
+            if (chat_id, msg_id) in processed_messages:
                 return
 
-            logger.info(f"Approved message detected in {chat_id} from {sender.id}")
-            
-            # 7. Post FULL message content to private channel
-            # Send as NEW message (no forward tag)
-            try:
-                await client.send_message(
-                    config.TARGET_CHANNEL,
-                    text,
-                    file=event.message.media
-                )
-                
-                # Mark as processed
-                processed_messages.add((chat_id, message_id))
-                
-                # Log success
-                logger.info(f"Forwarded Approved message {message_id} to channel {config.TARGET_CHANNEL}")
-                
-            except Exception as e:
-                logger.error(f"Failed to send message to target channel: {e}")
+            await client.send_message(
+                config.TARGET_CHANNEL,
+                text,
+                file=event.message.media
+            )
+
+            processed_messages.add((chat_id, msg_id))
+            logger.info(f"Approved message forwarded: {msg_id}")
 
     except Exception as e:
-        logger.error(f"Error processing event: {e}")
+        logger.error(f"Handler error: {e}")
 
+# ================= HEALTH SERVER (Koyeb Fix) =================
+async def health_server():
+    async def handle(request):
+        return web.Response(text="OK")
+
+    app = web.Application()
+    app.router.add_get("/", handle)
+
+    port = int(os.environ.get("PORT", 8000))
+    runner = web.AppRunner(app)
+    await runner.setup()
+    site = web.TCPSite(runner, "0.0.0.0", port)
+    await site.start()
+
+    logger.info(f"Health server running on port {port}")
+
+# ================= MAIN =================
 async def main():
     print("Starting Power Bot...")
     logger.info("Starting Power Bot")
-    
-    # Start the client
-    # This will prompt for phone number and code on first run if not authorized
-    # If the user has 2FA enabled but wants to login with just code,
-    # we use the standard start() which handles interactive password prompt if needed.
+
     await client.start(phone=config.PHONE_NUMBER)
-    
+
+    # 🔥 VERY IMPORTANT FOR KOYEB
+    await health_server()
+
     print("Bot is running. Monitoring groups...")
     logger.info("Bot is running and monitoring groups.")
-    
-    # Run until disconnected
+
     await client.run_until_disconnected()
 
-if __name__ == '__main__':
-    # Automatically install requirements
-    try:
-        import telethon
-        import dotenv
-    except ImportError:
-        print("Installing requirements...")
-        import subprocess
-        import sys
-        requirements_path = os.path.join(os.path.dirname(__file__), 'requirements.txt')
-        subprocess.check_call([sys.executable, "-m", "pip", "install", "-r", requirements_path])
-
+# ================= RUN =================
+if __name__ == "__main__":
     try:
         client.loop.run_until_complete(main())
     except KeyboardInterrupt:
-        print("Bot stopped.")
+        print("Bot stopped")
