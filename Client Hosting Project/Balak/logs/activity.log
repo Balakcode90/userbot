@@ -1,0 +1,132 @@
+2026-01-31 13:58:34,078 - INFO - Starting Power Bot
+2026-01-31 13:58:34,092 - INFO - Connecting to 149.154.167.51:443/TcpFull...
+2026-01-31 13:58:35,542 - INFO - Connection to 149.154.167.51:443/TcpFull complete!
+2026-01-31 13:58:36,179 - INFO - Phone migrated to 5
+2026-01-31 13:58:36,294 - INFO - Reconnecting to new data center 5
+2026-01-31 13:58:36,419 - INFO - Disconnecting from 149.154.167.51:443/TcpFull...
+2026-01-31 13:58:36,421 - INFO - Disconnection from 149.154.167.51:443/TcpFull complete!
+2026-01-31 13:58:36,422 - INFO - Connecting to 91.108.56.137:443/TcpFull...
+2026-01-31 14:00:09,633 - INFO - Starting Power Bot
+2026-01-31 14:00:09,634 - INFO - Connecting to 91.108.56.137:443/TcpFull...
+2026-01-31 14:00:11,642 - INFO - Connection to 91.108.56.137:443/TcpFull complete!
+2026-02-02 10:11:56,092 - INFO - Starting Power Bot
+2026-02-02 10:11:56,148 - INFO - Connecting to 149.154.167.51:443/TcpFull...
+2026-02-02 10:11:59,542 - INFO - Connection to 149.154.167.51:443/TcpFull complete!
+2026-02-02 10:12:02,004 - INFO - Phone migrated to 5
+2026-02-02 10:12:02,584 - INFO - Reconnecting to new data center 5
+2026-02-02 10:12:02,988 - INFO - Disconnecting from 149.154.167.51:443/TcpFull...
+2026-02-02 10:12:02,991 - INFO - Disconnection from 149.154.167.51:443/TcpFull complete!
+2026-02-02 10:12:02,993 - INFO - Connecting to 91.108.56.183:443/TcpFull...
+2026-02-02 10:12:05,089 - INFO - Connection to 91.108.56.183:443/TcpFull complete!
+2026-02-02 10:21:06,604 - INFO - Starting Power Bot
+2026-02-02 10:21:06,666 - INFO - Connecting to 149.154.167.51:443/TcpFull...
+2026-02-02 10:21:10,154 - INFO - Connection to 149.154.167.51:443/TcpFull complete!
+2026-02-02 10:21:12,086 - INFO - Phone migrated to 5
+2026-02-02 10:21:12,574 - INFO - Reconnecting to new data center 5
+2026-02-02 10:21:13,061 - INFO - Disconnecting from 149.154.167.51:443/TcpFull...
+2026-02-02 10:21:13,067 - INFO - Disconnection from 149.154.167.51:443/TcpFull complete!
+2026-02-02 10:21:13,070 - INFO - Connecting to 91.108.56.183:443/TcpFull...
+2026-02-02 10:21:15,062 - INFO - Connection to 91.108.56.183:443/TcpFull complete!
+2026-02-02 10:21:48,548 - INFO - Bot is running and monitoring groups.
+2026-02-02 10:33:13,299 - WARNING - Server closed the connection: [Errno 103] Software caused connection abort
+2026-02-02 10:33:13,367 - INFO - Connection closed while receiving data: [Errno 103] Software caused connection abort
+2026-02-02 10:33:13,379 - INFO - Closing current connection to begin reconnect...
+2026-02-02 10:33:13,386 - INFO - <class 'ConnectionAbortedError'> during disconnect: [Errno 103] Software caused connection abort
+2026-02-02 10:33:13,388 - INFO - Connecting to 91.108.56.183:443/TcpFull...
+2026-02-02 10:33:13,406 - WARNING - Attempt 1 at connecting failed: OSError: [Errno 101] Network is unreachable
+2026-02-02 10:33:14,421 - WARNING - Attempt 2 at connecting failed: OSError: [Errno 101] Network is unreachable
+2026-02-02 10:33:15,429 - WARNING - Attempt 3 at connecting failed: OSError: [Errno 101] Network is unreachable
+2026-02-02 10:33:16,438 - WARNING - Attempt 4 at connecting failed: OSError: [Errno 101] Network is unreachable
+2026-02-02 10:33:17,445 - WARNING - Attempt 5 at connecting failed: OSError: [Errno 101] Network is unreachable
+2026-02-02 10:33:18,451 - WARNING - Attempt 6 at connecting failed: OSError: [Errno 101] Network is unreachable
+2026-02-02 10:33:19,456 - INFO - Failed reconnection attempt 1 with ConnectionError
+2026-02-02 10:33:20,475 - INFO - Connecting to 91.108.56.183:443/TcpFull...
+2026-02-02 10:33:20,481 - WARNING - Attempt 1 at connecting failed: OSError: [Errno 101] Network is unreachable
+2026-02-02 10:33:21,487 - WARNING - Attempt 2 at connecting failed: OSError: [Errno 101] Network is unreachable
+2026-02-02 10:33:22,495 - WARNING - Attempt 3 at connecting failed: OSError: [Errno 101] Network is unreachable
+2026-02-02 10:33:23,504 - WARNING - Attempt 4 at connecting failed: OSError: [Errno 101] Network is unreachable
+2026-02-02 10:33:24,511 - WARNING - Attempt 5 at connecting failed: OSError: [Errno 101] Network is unreachable
+2026-02-02 10:33:25,520 - WARNING - Attempt 6 at connecting failed: OSError: [Errno 101] Network is unreachable
+2026-02-02 10:33:26,526 - INFO - Failed reconnection attempt 2 with ConnectionError
+2026-02-02 10:33:27,529 - INFO - Connecting to 91.108.56.183:443/TcpFull...
+2026-02-02 10:33:27,532 - WARNING - Attempt 1 at connecting failed: OSError: [Errno 101] Network is unreachable
+2026-02-02 10:33:28,542 - WARNING - Attempt 2 at connecting failed: OSError: [Errno 101] Network is unreachable
+2026-02-02 10:33:29,549 - WARNING - Attempt 3 at connecting failed: OSError: [Errno 101] Network is unreachable
+2026-02-02 10:33:30,554 - WARNING - Attempt 4 at connecting failed: OSError: [Errno 101] Network is unreachable
+2026-02-02 10:33:31,562 - WARNING - Attempt 5 at connecting failed: OSError: [Errno 101] Network is unreachable
+2026-02-02 10:33:32,571 - WARNING - Attempt 6 at connecting failed: OSError: [Errno 101] Network is unreachable
+2026-02-02 10:33:33,573 - INFO - Failed reconnection attempt 3 with ConnectionError
+2026-02-02 10:33:34,576 - INFO - Connecting to 91.108.56.183:443/TcpFull...
+2026-02-02 10:33:34,582 - WARNING - Attempt 1 at connecting failed: OSError: [Errno 101] Network is unreachable
+2026-02-02 10:33:35,589 - WARNING - Attempt 2 at connecting failed: OSError: [Errno 101] Network is unreachable
+2026-02-02 10:33:36,597 - WARNING - Attempt 3 at connecting failed: OSError: [Errno 101] Network is unreachable
+2026-02-02 10:33:37,606 - WARNING - Attempt 4 at connecting failed: OSError: [Errno 101] Network is unreachable
+2026-02-02 10:33:38,616 - WARNING - Attempt 5 at connecting failed: OSError: [Errno 101] Network is unreachable
+2026-02-02 10:33:39,624 - WARNING - Attempt 6 at connecting failed: OSError: [Errno 101] Network is unreachable
+2026-02-02 10:33:40,628 - INFO - Failed reconnection attempt 4 with ConnectionError
+2026-02-02 10:33:41,632 - INFO - Connecting to 91.108.56.183:443/TcpFull...
+2026-02-02 10:33:41,639 - WARNING - Attempt 1 at connecting failed: OSError: [Errno 101] Network is unreachable
+2026-02-02 10:33:42,649 - WARNING - Attempt 2 at connecting failed: OSError: [Errno 101] Network is unreachable
+2026-02-02 10:33:43,657 - WARNING - Attempt 3 at connecting failed: OSError: [Errno 101] Network is unreachable
+2026-02-02 10:33:44,666 - WARNING - Attempt 4 at connecting failed: OSError: [Errno 101] Network is unreachable
+2026-02-02 10:33:45,674 - WARNING - Attempt 5 at connecting failed: OSError: [Errno 101] Network is unreachable
+2026-02-02 10:33:46,682 - WARNING - Attempt 6 at connecting failed: OSError: [Errno 101] Network is unreachable
+2026-02-02 10:33:47,685 - INFO - Failed reconnection attempt 5 with ConnectionError
+2026-02-02 10:33:48,717 - ERROR - Automatic reconnection failed 5 time(s)
+2026-02-02 10:33:48,718 - INFO - Disconnecting from 91.108.56.183:443/TcpFull...
+2026-02-02 10:33:48,720 - INFO - Disconnection from 91.108.56.183:443/TcpFull complete!
+2026-02-02 10:33:48,740 - INFO - Not disconnecting (already have no connection)
+2026-02-02 10:37:53,375 - INFO - Starting Power Bot
+2026-02-02 10:37:53,378 - INFO - Connecting to 91.108.56.183:443/TcpFull...
+2026-02-02 10:37:53,487 - INFO - Connection to 91.108.56.183:443/TcpFull complete!
+2026-02-02 10:37:54,444 - INFO - Bot is running and monitoring groups.
+2026-02-02 10:42:45,971 - WARNING - Server closed the connection: [Errno 103] Software caused connection abort
+2026-02-02 10:42:46,020 - INFO - Connection closed while receiving data: [Errno 103] Software caused connection abort
+2026-02-02 10:42:46,026 - INFO - Closing current connection to begin reconnect...
+2026-02-02 10:42:46,046 - INFO - <class 'ConnectionAbortedError'> during disconnect: [Errno 103] Software caused connection abort
+2026-02-02 10:42:46,050 - INFO - Connecting to 91.108.56.183:443/TcpFull...
+2026-02-02 10:42:46,070 - WARNING - Attempt 1 at connecting failed: OSError: [Errno 101] Network is unreachable
+2026-02-02 10:42:47,081 - WARNING - Attempt 2 at connecting failed: OSError: [Errno 101] Network is unreachable
+2026-02-02 10:42:48,092 - WARNING - Attempt 3 at connecting failed: OSError: [Errno 101] Network is unreachable
+2026-02-02 10:42:49,118 - WARNING - Attempt 4 at connecting failed: OSError: [Errno 101] Network is unreachable
+2026-02-02 10:42:50,129 - WARNING - Attempt 5 at connecting failed: OSError: [Errno 101] Network is unreachable
+2026-02-02 10:42:51,135 - WARNING - Attempt 6 at connecting failed: OSError: [Errno 101] Network is unreachable
+2026-02-02 10:42:52,142 - INFO - Failed reconnection attempt 1 with ConnectionError
+2026-02-02 10:42:53,146 - INFO - Connecting to 91.108.56.183:443/TcpFull...
+2026-02-02 10:42:53,166 - WARNING - Attempt 1 at connecting failed: OSError: [Errno 101] Network is unreachable
+2026-02-02 10:42:54,175 - WARNING - Attempt 2 at connecting failed: OSError: [Errno 101] Network is unreachable
+2026-02-02 10:42:55,210 - WARNING - Attempt 3 at connecting failed: OSError: [Errno 101] Network is unreachable
+2026-02-02 10:42:56,217 - WARNING - Attempt 4 at connecting failed: OSError: [Errno 101] Network is unreachable
+2026-02-02 10:42:57,233 - WARNING - Attempt 5 at connecting failed: OSError: [Errno 101] Network is unreachable
+2026-02-02 10:42:58,239 - WARNING - Attempt 6 at connecting failed: OSError: [Errno 101] Network is unreachable
+2026-02-02 10:42:59,242 - INFO - Failed reconnection attempt 2 with ConnectionError
+2026-02-02 10:43:00,245 - INFO - Connecting to 91.108.56.183:443/TcpFull...
+2026-02-02 10:43:00,257 - WARNING - Attempt 1 at connecting failed: OSError: [Errno 101] Network is unreachable
+2026-02-02 10:43:01,261 - WARNING - Attempt 2 at connecting failed: OSError: [Errno 101] Network is unreachable
+2026-02-02 10:43:02,276 - WARNING - Attempt 3 at connecting failed: OSError: [Errno 101] Network is unreachable
+2026-02-02 10:43:03,287 - WARNING - Attempt 4 at connecting failed: OSError: [Errno 101] Network is unreachable
+2026-02-02 10:43:04,292 - WARNING - Attempt 5 at connecting failed: OSError: [Errno 101] Network is unreachable
+2026-02-02 10:43:05,301 - WARNING - Attempt 6 at connecting failed: OSError: [Errno 101] Network is unreachable
+2026-02-02 10:43:06,305 - INFO - Failed reconnection attempt 3 with ConnectionError
+2026-02-02 10:43:07,308 - INFO - Connecting to 91.108.56.183:443/TcpFull...
+2026-02-02 10:43:07,314 - WARNING - Attempt 1 at connecting failed: OSError: [Errno 101] Network is unreachable
+2026-02-02 10:43:08,324 - WARNING - Attempt 2 at connecting failed: OSError: [Errno 101] Network is unreachable
+2026-02-02 10:43:09,333 - WARNING - Attempt 3 at connecting failed: OSError: [Errno 101] Network is unreachable
+2026-02-02 10:43:10,794 - INFO - Connection to 91.108.56.183:443/TcpFull complete!
+2026-02-02 10:49:41,828 - WARNING - Server closed the connection: [Errno 103] Software caused connection abort
+2026-02-02 10:49:41,901 - INFO - Connection closed while receiving data: [Errno 103] Software caused connection abort
+2026-02-02 10:49:41,981 - INFO - Closing current connection to begin reconnect...
+2026-02-02 10:49:42,033 - INFO - <class 'ConnectionAbortedError'> during disconnect: [Errno 103] Software caused connection abort
+2026-02-02 10:49:42,035 - INFO - Connecting to 91.108.56.183:443/TcpFull...
+2026-02-02 10:49:42,169 - INFO - Connection to 91.108.56.183:443/TcpFull complete!
+2026-02-02 11:05:17,752 - INFO - Approved message detected in -1003584874400 from 7715746964
+2026-02-02 11:05:18,025 - INFO - Forwarded Approved message 19065 to channel -1003309759576
+2026-02-02 11:05:46,687 - INFO - Approved message detected in -1003559951977 from 8029511300
+2026-02-02 11:05:46,943 - INFO - Forwarded Approved message 18732 to channel -1003309759576
+2026-02-02 11:05:47,583 - INFO - Got difference for channel 3309759576 updates
+2026-02-02 11:08:10,758 - INFO - Got difference for account updates
+2026-02-02 11:11:29,316 - INFO - Approved message detected in -1003504545283 from 8029511300
+2026-02-02 11:11:29,551 - INFO - Forwarded Approved message 18691 to channel -1003309759576
+2026-02-02 11:11:54,432 - INFO - Approved message detected in -1003584874400 from 8029511300
+2026-02-02 11:11:54,685 - INFO - Forwarded Approved message 19091 to channel -1003309759576
+2026-02-02 11:15:57,976 - INFO - Got difference for channel 3548462925 updates
